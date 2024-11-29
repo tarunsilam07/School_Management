@@ -22,7 +22,7 @@ router.post('/addSchool',(req,res)=>{
         return res.status(400).send({error:"Please make sure that all fields are filled"});
     }
 
-    const query='INSERT INTO schools(name,address,lalitude,longitude) VALUES(?,?,?,?)';
+    const query='INSERT INTO schools(name,address,latitude,longitude) VALUES(?,?,?,?)';
 
     db.query(query,[name,address,latitude,longitude],(errors,results)=>{
         if(errors) 
