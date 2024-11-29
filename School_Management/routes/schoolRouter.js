@@ -6,7 +6,7 @@ const router = express.Router();
 dotenv.config();
 
 const db = mysql.createPool({
-    host: process.env.DB_HOST,           
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -26,6 +26,7 @@ db.getConnection((err) => {
 
 router.post('/addSchool', (req, res) => {
     const { name, address, latitude, longitude } = req.body;
+
     if (!name || !address || !latitude || !longitude) {
         return res.status(400).send({ error: 'Please make sure that all fields are filled.' });
     }
@@ -33,6 +34,7 @@ router.post('/addSchool', (req, res) => {
     const query = 'INSERT INTO schools(name, address, latitude, longitude) VALUES(?, ?, ?, ?)';
     db.query(query, [name, address, latitude, longitude], (err, results) => {
         if (err) {
+            console.error('Error during INSERT:', err.message);
             return res.status(500).send({ error: err.message });
         }
         res.status(201).send({ msg: 'School successfully added.', id: results.insertId });
@@ -49,14 +51,15 @@ router.get('/schools', (req, res) => {
     const query = 'SELECT id, name, address, latitude, longitude FROM schools';
     db.query(query, (err, schools) => {
         if (err) {
+            console.error('Error fetching data:', err.message);
             return res.status(500).send({ error: err.message });
         }
 
         const orderedSchools = schools
             .map((school) => {
                 const distance = Math.sqrt(
-                    Math.pow(school.latitude - latitude, 2) +
-                    Math.pow(school.longitude - longitude, 2)
+                    Math.pow(school.latitude - parseFloat(latitude), 2) +
+                    Math.pow(school.longitude - parseFloat(longitude), 2)
                 );
                 return { ...school, distance };
             })
