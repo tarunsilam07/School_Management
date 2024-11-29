@@ -1,0 +1,1 @@
+This project handles the school management of certain listed schools and enables us to add the schools and get the list of all schools that are listed before
