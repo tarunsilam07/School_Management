@@ -1,0 +1,16 @@
+{
+  "name": "school_management",
+  "version": "1.0.0",
+  "description": "This project handles the school management of certain listed schools and enables us to add the schools and get the list of all schools that are listed before",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "Tarun Silam",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "mysql2": "^3.11.5"
+  }
+}
