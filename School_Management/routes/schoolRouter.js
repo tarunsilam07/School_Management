@@ -41,7 +41,7 @@ router.post('/addSchool', (req, res) => {
     });
 });
 
-router.get('/schools', (req, res) => {
+router.get('/listSchools', (req, res) => {
     const { latitude, longitude } = req.query;
 
     if (!latitude || !longitude) {
