@@ -16,6 +16,7 @@ requiredEnv.forEach((key) => {
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+app.use(express.urlencoded({extended:false}))
 app.use('/', schoolRouter);
 
 app.listen(PORT, () => {
